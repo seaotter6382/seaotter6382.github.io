@@ -1,4 +1,4 @@
-<html><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><head><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
+<html><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><head><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
     <link type="text/css" rel="stylesheet" id="dark-mode-general-link">
     <style lang="en" type="text/css" id="dark-mode-custom-style"></style>
     <style lang="en" type="text/css" id="dark-mode-native-style"></style>
@@ -12,7 +12,7 @@
 }
 </style></head>
         <body style="
-        background: #525252;
+        background: #666666;
         text-align: center;
         font-size: 50;
         font-family: cursive;
@@ -20,11 +20,17 @@
     text-align: left;
     color: grey;
     font-size: 20;
-">version 1.11    2/6/2024 1:31</p><p class="hide">enter your username:</p>
-    <p class="hide" contenteditable="true" style="background: #595959; color: #ffffff;" maxlength="10" onkeypress="if (this.textContent.length &gt;= 10) { event.preventDefault(); }">username</p>
+">version 1.11    2/6/2024 1:31</p><p class="hide" style="display: none;">enter your username:</p>
+    <p class="hide" contenteditable="true" style="background: rgb(89, 89, 89); color: rgb(255, 255, 255); display: none;" maxlength="10" onkeypress="if (this.textContent.length &gt;= 10) { event.preventDefault(); }">username</p>
 
 
-    <button type="button" onclick="this.style.display='none'; document.querySelectorAll('.hide').forEach(e =&gt; e.style.display='none');" style="font-family: cursive;background: #008000;color: #02b902;font-size: 50;">Start</button>
+    <button type="button" onclick="this.style.display='none'; document.querySelectorAll('.hide').forEach(e =&gt; e.style.display='none'); document.querySelectorAll('.game').forEach(e =&gt; e.style.display='block');" style="font-family: cursive; background: rgb(0, 128, 0); color: rgb(2, 185, 2); font-size: 50px; display: none;">Start</button> <p class="game" style="
+    display: none;
+    background: #9f9f9f;
+    width: auto;
+    height: 500;
+"></p>
 
-</body>
-</html>
+
+
+</body></html>
