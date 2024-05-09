@@ -2,12 +2,19 @@
   <head></head>
   <body>
     <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
+    <audio id="bruh" src="sounds/bruh.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
+    <button onclick="bruh()">bruh</button>
 
     <script>
       function vineboom() {
         var audio = document.getElementById("vine boom");
+        audio.play();
+      }
+
+      function bruh() {
+        var audio = document.getElementById("bruh");
         audio.play();
       }
     </script>
