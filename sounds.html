@@ -6,10 +6,12 @@
     <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
     <audio id="bruh" src="sounds/bruh.mp3"></audio>
     <audio id="beep" src="sounds/beep.mp3"></audio>
+    <audio id="nbl" src="sounds/nlbtheme.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
     <button onclick="beep()">andrioid beep</button>
+    <button onclick="nlb()">nlb theme [LOUD]</button>
 
     <script>
       function vineboom() {
@@ -24,6 +26,11 @@
 
       function beep() {
         var audio = document.getElementById("beep");
+        audio.play();
+      }
+
+      function nlb() {
+        var audio = document.getElementById("nbl");
         audio.play();
       }
     </script>
