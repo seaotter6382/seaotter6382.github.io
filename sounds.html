@@ -3,9 +3,11 @@
   <body>
     <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
     <audio id="bruh" src="sounds/bruh.mp3"></audio>
+    <audio id="beep" src="sounds/beep.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
+    <button onclick="beep()">andrioid beep</button>
 
     <script>
       function vineboom() {
@@ -15,6 +17,11 @@
 
       function bruh() {
         var audio = document.getElementById("bruh");
+        audio.play();
+      }
+
+      function beep() {
+        var audio = document.getElementById("beep");
         audio.play();
       }
     </script>
