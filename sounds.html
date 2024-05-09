@@ -1,7 +1,15 @@
 <html>
   <head></head>
   <body>
+    <audio id="vine boom" src="Sounds/vineboom.mp3"></audio>
     <h1>funny sounds</h1>
-    <button>vine boom</button>
+    <button onclick="vineboom()">vine boom</button>
+
+    <script>
+      function vineboom() {
+        var audio = document.getElementbyId("vine boom");
+        audio.play();
+      }
+    </script>
   </body>
 </html>
