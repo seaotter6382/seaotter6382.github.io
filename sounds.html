@@ -9,6 +9,7 @@
     <audio id="nbl" src="sounds/nlbtheme.mp3"></audio>
     <audio id="bill" src="sounds/billny.mp3"></audio>
     <audio id="baby" src="sounds/dabbay.mp3"></audio>
+    <audio id="india" src="sounds/indina beets.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
@@ -16,6 +17,7 @@
     <button onclick="nlb()">nlb theme [LOUD]</button>
     <button onclick="bill()">bill nye</button>
     <button onclick="baby()">dababy</button>
+    <button onclick="india()">loud india music</button>
 
     <script>
       function vineboom() {
@@ -45,6 +47,11 @@
 
       function baby() {
         var audio = document.getElementById("baby");
+        audio.play();
+      }
+
+      function india() {
+        var audio = document.getElementById("india");
         audio.play();
       }
     </script>
