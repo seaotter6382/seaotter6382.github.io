@@ -10,6 +10,7 @@
     <audio id="bill" src="sounds/billny.mp3"></audio>
     <audio id="baby" src="sounds/dabbay.mp3"></audio>
     <audio id="india" src="sounds/indina beets.mp3"></audio>
+    <audio id="door" src="sounds/door.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
@@ -18,6 +19,7 @@
     <button onclick="bill()">bill nye</button>
     <button onclick="baby()">dababy</button>
     <button onclick="india()">loud india music</button>
+    <button onclick="door()">open the noor</button>
 
     <script>
       function vineboom() {
@@ -52,6 +54,11 @@
 
       function india() {
         var audio = document.getElementById("india");
+        audio.play();
+      }
+
+      function door() {
+        var audio = document.getElementById("door");
         audio.play();
       }
     </script>
