@@ -1,66 +1,87 @@
-<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>seaotter's sounds</title>
-</head>
-<body>
-<audio id="vineboom" src="sounds/vineboom.mp3"></audio>
-<audio id="bruh" src="sounds/bruh.mp3"></audio>
-<audio id="beep" src="sounds/beep.mp3"></audio>
-<audio id="nbl" src="sounds/nlbtheme.mp3"></audio>
-<audio id="bill" src="sounds/billny.mp3"></audio>
-<audio id="baby" src="sounds/dabbay.mp3"></audio>
-<audio id="india" src="sounds/indianbeats.mp3"></audio>
-<audio id="door" src="sounds/door.mp3"></audio>
-<audio id="fart" src="sounds/fart.mp3"></audio>
-<audio id="siko" src="sounds/siko.mp3"></audio>
-<audio id="taco" src="sounds/taco.mp3"></audio>
+  </head>
+  <body>
+    <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
+    <audio id="bruh" src="sounds/bruh.mp3"></audio>
+    <audio id="beep" src="sounds/beep.mp3"></audio>
+    <audio id="nbl" src="sounds/nlbtheme.mp3"></audio>
+    <audio id="bill" src="sounds/billny.mp3"></audio>
+    <audio id="baby" src="sounds/dabbay.mp3"></audio>
+    <audio id="india" src="sounds/indina beets.mp3"></audio>
+    <audio id="door" src="sounds/door.mp3"></audio>
+    <audio id="fart" src="sounds/fart.mp3"></audio>
+    <audio id="siko" src="sounds/siko.mp3"></audio>
+    <audio id="taco" src="sounds/taco.mp3"></audio>
+    <h1>funny sounds</h1>
+    <button onclick="vineboom()">vine boom</button>
+    <button onclick="bruh()">bruh</button>
+    <button onclick="beep()">andrioid beep</button>
+    <button onclick="nlb()">nlb theme [LOUD]</button>
+    <button onclick="bill()">bill nye</button>
+    <button onclick="baby()">dababy</button>
+    <button onclick="india()">loud india music</button>
+    <button onclick="door()">open the noor</button>
+    <button onclick="fart()">big fart</button>
+    <button onclick="siko()">siko mode</button>
+    <button onclick="taco()">taco bell</button>
 
-<h1>funny sounds</h1>
-<button onclick="playSound('vineboom')">vine boom</button>
-<button onclick="playSound('bruh')">bruh</button>
-<button onclick="playSound('beep')">android beep</button>
-<button onclick="playSound('nbl')">nlb theme [LOUD]</button>
-<button onclick="playSound('bill')">bill nye</button>
-<button onclick="playSound('baby')">dababy</button>
-<button onclick="playSound('india')">loud india music</button>
-<button onclick="playSound('door')">open the noor</button>
-<button onclick="playSound('fart')">big fart</button>
-<button onclick="playSound('siko')">siko mode</button>
-<button onclick="playSound('taco')">taco bell</button>
-
-<p></p>
-<label for="volume">Volume:</label>
-<input type="range" id="volume" name="volume" min="0" max="2" step="0.1" value="1" onchange="setVolume(this.value)">
-
-<script>
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    function playSound(soundId) {
-        var audio = document.getElementById(soundId);
-        var volumeMultiplier = document.getElementById('volume').value;
-        volumeMultiplier = Math.max(0, Math.min(2, volumeMultiplier));
-
-        var source = audioContext.createMediaElementSource(audio);
-        var gainNode = audioContext.createGain();
-        gainNode.gain.value = volumeMultiplier;
-        source.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+    <script>
+      function vineboom() {
+        var audio = document.getElementById("vine boom");
         audio.play();
-    }
+      }
 
+      function bruh() {
+        var audio = document.getElementById("bruh");
+        audio.play();
+      }
 
-    function setVolume(volume) {
-        var allAudios = document.getElementsByTagName('audio');
-        for (var i = 0; i < allAudios.length; i++) {
-            allAudios[i].volume = volume;
-            var source = audioContext.createMediaElementSource(allAudios[i]);
-            var gainNode = audioContext.createGain();
-            gainNode.gain.value = volume;
-            source.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-        }
-    }
-</script>
-</body>
+      function beep() {
+        var audio = document.getElementById("beep");
+        audio.play();
+      }
+
+      function nlb() {
+        var audio = document.getElementById("nbl");
+        audio.play();
+      }
+
+      function bill() {
+        var audio = document.getElementById("bill");
+        audio.play();
+      }
+
+      function baby() {
+        var audio = document.getElementById("baby");
+        audio.play();
+      }
+
+      function india() {
+        var audio = document.getElementById("india");
+        audio.play();
+      }
+
+      function door() {
+        var audio = document.getElementById("door");
+        audio.play();
+      }
+
+      function fart() {
+        var audio = document.getElementById("fart");
+        audio.play();
+      }
+
+      function siko() {
+        var audio = document.getElementById("siko");
+        audio.play();
+      }
+
+      function taco() {
+        var audio = document.getElementById("taco");
+        audio.play();
+      }
+    </script>
+  </body>
 </html>
