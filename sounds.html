@@ -34,10 +34,18 @@
 <input type="range" id="volume" name="volume" min="0" max="2" step="0.1" value="1" onchange="setVolume(this.value)">
 
 <script>
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
     function playSound(soundId) {
         var audio = document.getElementById(soundId);
         var volume = document.getElementById('volume').value;
         audio.volume = volume;
+
+        var source = audioContext.createMediaElementSource(audio);
+        var gainNode = audioContext.createGain();
+        gainNode.gain.value = volume;
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
         audio.play();
     }
 
@@ -45,6 +53,11 @@
         var allAudios = document.getElementsByTagName('audio');
         for (var i = 0; i < allAudios.length; i++) {
             allAudios[i].volume = volume;
+            var source = audioContext.createMediaElementSource(allAudios[i]);
+            var gainNode = audioContext.createGain();
+            gainNode.gain.value = volume;
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
         }
     }
 </script>
