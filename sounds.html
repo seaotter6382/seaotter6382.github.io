@@ -38,16 +38,17 @@
 
     function playSound(soundId) {
         var audio = document.getElementById(soundId);
-        var volume = document.getElementById('volume').value;
-        audio.volume = volume;
+        var volumeMultiplier = document.getElementById('volume').value;
+        volumeMultiplier = Math.max(0, Math.min(2, volumeMultiplier));
 
         var source = audioContext.createMediaElementSource(audio);
         var gainNode = audioContext.createGain();
-        gainNode.gain.value = volume;
+        gainNode.gain.value = volumeMultiplier;
         source.connect(gainNode);
         gainNode.connect(audioContext.destination);
         audio.play();
     }
+
 
     function setVolume(volume) {
         var allAudios = document.getElementsByTagName('audio');
