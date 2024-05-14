@@ -12,6 +12,8 @@
     <audio id="india" src="sounds/indina beets.mp3"></audio>
     <audio id="door" src="sounds/door.mp3"></audio>
     <audio id="fart" src="sounds/fart.mp3"></audio>
+    <audio id="siko" src="sounds/siko.mp3"></audio>
+    <audio id="taco" src="sounds/tacp.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
@@ -22,6 +24,8 @@
     <button onclick="india()">loud india music</button>
     <button onclick="door()">open the noor</button>
     <button onclick="fart()">big fart</button>
+    <button onclick="siko()">siko mode</button>
+    <button onclick="taco()">taco bell</button>
 
     <script>
       function vineboom() {
@@ -66,6 +70,16 @@
 
       function fart() {
         var audio = document.getElementById("fart");
+        audio.play();
+      }
+
+      function siko() {
+        var audio = document.getElementById("siko");
+        audio.play();
+      }
+
+      function taco() {
+        var audio = document.getElementById("taco");
         audio.play();
       }
     </script>
