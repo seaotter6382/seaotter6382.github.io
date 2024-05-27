@@ -11,28 +11,28 @@ def calculator(number):
         word1 = input()
         print("Enter your second number")
         word2 = input()
-        word3 = word1 + word2
+        word3 = int(word1) + int(word2)
         print(word1 + " + " + word2 + " = " + word3)
     if number == 2: 
         print("Enter your first number")
         word1 = input()
         print("Enter your second number")
         word2 = input()
-        word3 = word1 - word2
+        word3 = int(word1) - int(word2)
         print(word1 + " - " + word2 + " = " + word3)
     if number == 3:
         print("Enter your first number")
         word1 = input()
         print("Enter your second number")
         word2 = input()
-        word3 = word1 / word2
+        word3 = int(word1) / int(word2)
         print(word1 + " / " + word2 + " = " + word3)
     if number == 4:
         print("Enter your first number")
         word1 = input()
         print("Enter your second number")
         word2 = input()
-        word3 = word1 * word2
+        word3 = int(word1) * int(word2)
         print(word1 + " * " + word2 + " = " + word3)
 
 calculator(1)
