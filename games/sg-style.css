@@ -1,0 +1,265 @@
+html {
+    overflow: hidden;
+}
+
+#title {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#title::selection {
+    color: gray;
+}
+
+#start-button {
+    font-size: 40px;
+    background-color: #09c200;
+    color: green;
+    text-align: center;
+    justify-self: center;
+}
+
+.square {
+    height: 50px;
+    width: 50px;
+    background-color: gray
+}
+
+#player {
+    position: absolute;
+    background-color: blue;
+    left: 200px;
+    top: 200px;
+}
+
+#inv-1 {
+    height: 50px;
+    width: 50px;
+    background: #868686;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-1-text {
+    font-size: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: absolute;
+    top: 25px;
+}
+
+#inv-1-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
+
+#inv-1-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-2 {
+    height: 50px;
+    width: 50px;
+    background: #c8c8c8;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-2-text {
+    font-size: 25px;
+}
+
+#inv-1-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-3 {
+    height: 50px;
+    width: 50px;
+    background: #c8c8c8;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-3-text {
+    font-size: 25px;
+}
+
+#inv-4 {
+    height: 50px;
+    width: 50px;
+    background: #c8c8c8;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-4-text {
+    font-size: 25px;
+}
+
+#inv-5 {
+    height: 50px;
+    width: 50px;
+    background: #c8c8c8;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-5-text {
+    font-size: 25px;
+}
+
+#inv-6 {
+    height: 50px;
+    width: 50px;
+    background: #c8c8c8;
+    left: 100px;
+    position: absolute;
+}
+
+#inv-6-text {
+    font-size: 25px;
+}
+
+#tree1 {
+    height: 50px;
+    width: 50px;
+    background: #04bb04;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
+#tree1:hover {
+    background: #005d00;
+}
+
+#tree2 {
+    height: 50px;
+    width: 50px;
+    background: green;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
+#tree2:hover {
+    background: #005d00;
+}
+
+#version {
+    margin-top: 0px;
+    color: gray;
+    text-align: center;
+    margin-bottom: 500px;
+}
+
+#version::selection {
+    color: black;
+}
+
+#wood-hold {
+    height: 15px;
+    width: 15px;
+    left: 45px;
+    top: 40px;
+    background: #925b00;
+    position: absolute;
+}
+
+#inv-2-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
+
+#inv-2-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-3-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-4-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-5-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-6-wood {
+    height: 30px;
+    width: 30px;
+    background: #925b00;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#inv-3-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
+
+#inv-4-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
+
+#inv-5-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
+
+#inv-6-count {
+    font-size: 25px;
+    top: -30px;
+    left: 35px;
+    position: absolute;
+    color: black;
+}
