@@ -20,6 +20,14 @@ html {
     justify-self: center;
 }
 
+#patch-button {
+    font-size: 40px;
+    background-color: yellow;
+    color: yellowgreen;
+    text-align: center;
+    justify-self: center;
+}
+
 .square {
     height: 50px;
     width: 50px;
@@ -159,6 +167,18 @@ html {
     background: #005d00;
 }
 
+#tree3 {
+    height: 50px;
+    width: 50px;
+    background: green;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
+#tree3:hover {
+    background: #005d00;
+}
+
 #version {
     margin-top: 0px;
     color: gray;
@@ -262,4 +282,81 @@ html {
     left: 35px;
     position: absolute;
     color: black;
+}
+
+#health-value {
+    height: 10px;
+    width: 100px;
+    background: red;
+    position: absolute;
+    transition: width 0.3s ease
+}
+
+#health-bar {
+    height: 10px;
+    width: 100px;
+    background: gray;
+    position: absolute;
+    transition: width 0.3s ease
+}
+
+#patch {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#patch::selection {
+    color: gray;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #bdbdbd;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.5s ease;
+}
+
+#patch1 {
+    color: gray;
+    text-align: center;
+    margin-top: 0px;
+}
+
+#patch2 {
+    text-align: center;
+}
+
+#patch-back {
+    text-align: center;
+    justify-self: center;
+    font-size: 40px;
+    background: red;
+    color: #870000;
+}
+
+#noti {
+    display: block;
+    position: absolute;
+    top: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: opacity 0.1s ease;
+}
+
+.tree {
+    height: 50px;
+    width: 50px;
+    background: #04bb04;
+    position: absolute;
+    transition: background-color 0.3s ease;
 }

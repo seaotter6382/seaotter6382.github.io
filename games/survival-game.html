@@ -8,10 +8,23 @@
     </head>
     <body onload="start()">
         <p id="title">Survival Game</p>
-        <p id="version">Version 0.1.1</p>
+        <p id="version">Version 0.1.2</p>
+        
+        <p id="patch">Patch Notes</p>
+        <p id="patch1">Update 0.1.2</p>
+        <p id="patch2">Things this update worked on: <br> The Tree's Health (when you click the tree, sometimes it will go away) <br> Debugger Commands (when you press esc, you open the debugger menu that you can enter commands and it prints it out in the output.<br> inv - prints your inventory) <br> If you use LMB, it minuses one of your current block in your hand</p>
+        
+        
+        <input id="debug-input"></input>
+        
+        <p id="noti">Notification: NULL</p>
        
         <div style="display: grid;">
             <button id="start-button" onclick="view2()">Start</button>
+            <p></p>
+            <button id="patch-button" onclick="view3()">Patch Notes</button>
+            <p></p>
+            <button id="patch-back" onclick="view1()">Back</button>
         </div>
 
         <div class="square" id="player">
@@ -54,7 +67,11 @@
             <p id="inv-6-text">6</p>
         </div>
         
+        <div id="health-bar"></div>
+        <div id="health-value"></div>
+        
         <div id="tree1"></div>
         <div id="tree2"></div>
+        <div id="tree3"></div>
     </body>
 </html>
