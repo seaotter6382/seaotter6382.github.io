@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+<<<<<<< HEAD
         <title>Survival Game 0.1.2</title>
+=======
+        <title>Survival Game 0.1.3</title>
+>>>>>>> 1b363a4 (updated survival game)
         <link rel="stylesheet" type="text/css" href="sg-style.css">
         <script src="sg-script.js"></script>
         <link rel="icon" type="image/png" sizes="32x32" href="sg-icon.png">
     </head>
-    <body onload="start()">
+    <body onload="start()" id="html-body">
         <p id="title">Survival Game</p>
-        <p id="version">Version 0.1.2</p>
+        <p id="version">Version 0.1.3</p>
         
         <p id="patch">Patch Notes</p>
-        <p id="patch1">Update 0.1.2</p>
-        <p id="patch2">Things this update worked on: <br> The Tree's Health (when you click the tree, sometimes it will go away) <br> Debugger Commands (when you press esc, you open the debugger menu that you can enter commands and it prints it out in the output.<br> inv - prints your inventory) <br> If you use LMB, it minuses one of your current block in your hand</p>
-        
-        
-        <input id="debug-input"></input>
+        <p id="patch1">Update 0.1.3</p>
+        <p id="patch2">This update works on the stone block, and patched a few bugs</p>
         
         <p id="noti">Notification: NULL</p>
+
+        <div id="tree1"></div>
        
         <div style="display: grid;">
             <button id="start-button" onclick="view2()">Start</button>
@@ -25,53 +28,59 @@
             <button id="patch-button" onclick="view3()">Patch Notes</button>
             <p></p>
             <button id="patch-back" onclick="view1()">Back</button>
+            <input id="debug-input"></input>
         </div>
 
         <div class="square" id="player">
                 <div id="wood-hold"></div>
+                <div id="stone-hold"></div>
         </div>
-        
+
+        <div id="rock1"></div>
+
         <div id="inv-1">
                 <div id="inv-1-wood"></div>
+                <div id="inv-1-stone"></div>
                 <p id="inv-1-count">0</p>
                 <p id="inv-1-text">1</p>
         </div>
         
         <div id="inv-2">
             <div id="inv-2-wood"></div>
+            <div id="inv-2-stone"></div>
             <p id="inv-2-count">0</p>
             <p id="inv-2-text">2</p>
         </div>
         
         <div id="inv-3">
             <div id="inv-3-wood"></div>
+            <div id="inv-3-stone"></div>
             <p id="inv-3-count">0</p>
             <p id="inv-3-text">3</p>
         </div>
         
         <div id="inv-4">
             <div id="inv-4-wood"></div>
+            <div id="inv-4-stone"></div>
             <p id="inv-4-count">0</p>
             <p id="inv-4-text">4</p>
         </div>
         
         <div id="inv-5">
             <div id="inv-5-wood"></div>
+            <div id="inv-5-stone"></div>
             <p id="inv-5-count">0</p>
             <p id="inv-5-text">5</p>
         </div>
         
         <div id="inv-6">
             <div id="inv-6-wood"></div>
+            <div id="inv-6-stone"></div>
             <p id="inv-6-count">0</p>
             <p id="inv-6-text">6</p>
         </div>
         
         <div id="health-bar"></div>
         <div id="health-value"></div>
-        
-        <div id="tree1"></div>
-        <div id="tree2"></div>
-        <div id="tree3"></div>
     </body>
 </html>
