@@ -41,15 +41,20 @@ html {
     top: 200px;
 }
 
-#inv-1 {
+#inv-1, #inv-2, #inv-3, #inv-4, #inv-5, #inv-6 {
     height: 50px;
     width: 50px;
-    background: #868686;
+    background: #c8c8c8;
     left: 100px;
     position: absolute;
+    z-index: 10
 }
 
-#inv-1-text {
+#inv-1 {
+    background: #868686;
+}
+
+#inv-1-text, #inv-2-text, #inv-3-text, #inv-4-text, #inv-5-text, #inv-6-text {
     font-size: 25px;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -57,7 +62,7 @@ html {
     top: 25px;
 }
 
-#inv-1-count {
+#inv-1-count, #inv-2-count, #inv-3-count, #inv-4-count, #inv-5-count, #inv-6-count {
     font-size: 25px;
     top: -30px;
     left: 35px;
@@ -65,7 +70,7 @@ html {
     color: black;
 }
 
-#inv-1-wood {
+#inv-1-wood, #inv-2-wood, #inv-3-wood, #inv-4-wood, #inv-5-wood, #inv-6-wood {
     height: 30px;
     width: 30px;
     background: #925b00;
@@ -74,76 +79,25 @@ html {
     top: 10px;
 }
 
-#inv-2 {
-    height: 50px;
-    width: 50px;
-    background: #c8c8c8;
-    left: 100px;
-    position: absolute;
-}
-
-#inv-2-text {
-    font-size: 25px;
-}
-
-#inv-1-wood {
+#inv-1-stone, #inv-2-stone, #inv-3-stone, #inv-4-stone, #inv-5-stone, #inv-6-stone {
     height: 30px;
     width: 30px;
-    background: #925b00;
+    background: #8f8f8f;
     position: absolute;
     left: 10px;
     top: 10px;
 }
 
-#inv-3 {
-    height: 50px;
-    width: 50px;
-    background: #c8c8c8;
-    left: 100px;
-    position: absolute;
-}
-
-#inv-3-text {
-    font-size: 25px;
-}
-
-#inv-4 {
-    height: 50px;
-    width: 50px;
-    background: #c8c8c8;
-    left: 100px;
-    position: absolute;
-}
-
-#inv-4-text {
-    font-size: 25px;
-}
-
-#inv-5 {
-    height: 50px;
-    width: 50px;
-    background: #c8c8c8;
-    left: 100px;
-    position: absolute;
-}
-
-#inv-5-text {
-    font-size: 25px;
-}
-
-#inv-6 {
-    height: 50px;
-    width: 50px;
-    background: #c8c8c8;
-    left: 100px;
-    position: absolute;
-}
-
-#inv-6-text {
-    font-size: 25px;
-}
 
 #tree1 {
+    height: 50px;
+    width: 50px;
+    background: #00ff00;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
+#tree {
     height: 50px;
     width: 50px;
     background: #04bb04;
@@ -151,31 +105,11 @@ html {
     transition: background-color 0.3s ease;
 }
 
+#tree:hover {
+    background: #005d00;
+}
+
 #tree1:hover {
-    background: #005d00;
-}
-
-#tree2 {
-    height: 50px;
-    width: 50px;
-    background: green;
-    position: absolute;
-    transition: background-color 0.3s ease;
-}
-
-#tree2:hover {
-    background: #005d00;
-}
-
-#tree3 {
-    height: 50px;
-    width: 50px;
-    background: green;
-    position: absolute;
-    transition: background-color 0.3s ease;
-}
-
-#tree3:hover {
     background: #005d00;
 }
 
@@ -199,89 +133,13 @@ html {
     position: absolute;
 }
 
-#inv-2-count {
-    font-size: 25px;
-    top: -30px;
-    left: 35px;
+#stone-hold {
+    height: 15px;
+    width: 15px;
+    left: 45px;
+    top: 40px;
+    background: #8f8f8f;
     position: absolute;
-    color: black;
-}
-
-#inv-2-wood {
-    height: 30px;
-    width: 30px;
-    background: #925b00;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#inv-3-wood {
-    height: 30px;
-    width: 30px;
-    background: #925b00;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#inv-4-wood {
-    height: 30px;
-    width: 30px;
-    background: #925b00;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#inv-5-wood {
-    height: 30px;
-    width: 30px;
-    background: #925b00;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#inv-6-wood {
-    height: 30px;
-    width: 30px;
-    background: #925b00;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-#inv-3-count {
-    font-size: 25px;
-    top: -30px;
-    left: 35px;
-    position: absolute;
-    color: black;
-}
-
-#inv-4-count {
-    font-size: 25px;
-    top: -30px;
-    left: 35px;
-    position: absolute;
-    color: black;
-}
-
-#inv-5-count {
-    font-size: 25px;
-    top: -30px;
-    left: 35px;
-    position: absolute;
-    color: black;
-}
-
-#inv-6-count {
-    font-size: 25px;
-    top: -30px;
-    left: 35px;
-    position: absolute;
-    color: black;
 }
 
 #health-value {
@@ -290,6 +148,7 @@ html {
     background: red;
     position: absolute;
     transition: width 0.3s ease
+    z-index: 10;
 }
 
 #health-bar {
@@ -298,6 +157,7 @@ html {
     background: gray;
     position: absolute;
     transition: width 0.3s ease
+    z-index: 10;
 }
 
 #patch {
@@ -359,4 +219,33 @@ html {
     background: #04bb04;
     position: absolute;
     transition: background-color 0.3s ease;
+}
+
+#rock1 {
+    height: 50px;
+    width: 50px;
+    background: #8f8f8f;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
+#rock1:hover {
+    background: #575757;
+}
+
+#debug-input {
+    align-content: center;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.tree:hover {
+    background: #005d00;
+}
+
+.placedwood {
+    height: 50px;
+    width: 50px;
+    background: #925b00;
+    position: absolute;
 }
