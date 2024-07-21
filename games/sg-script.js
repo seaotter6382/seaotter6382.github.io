@@ -7,16 +7,26 @@ let player = null;
 let healthbar = null;
 let health = null;
 let woodhold = null;
+let stonehold = null;
 let tree1 = null;
-let tree1health = Math.random() * (7 - 3) + 1;
-let tree2 = null;
-let tree2health = Math.random() * (5 - 1) + 1;
-let tree3 = null;
-let tree3health = Math.random() * (5 - 1) + 1;
-let tree2offsetx = Math.random() * (1000 - -1000) + -1000;
-let tree2offsety = Math.random() * (1000 - -1000) + -1000;
-let tree3offsetx = Math.random() * (1000 - -1000) + -1000;
-let tree3offsety = Math.random() * (1000 - -1000) + -1000;
+
+let totaltrees = 500;
+let totalstone = 100;
+
+let worldmax = 2500;
+
+let placedblocks = 0;
+
+let rock1 = null;
+let rock1health = Math.random() * (7 - 3) + 1;
+
+let rock1offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+let rock1offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+
+let tree1offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+let tree1offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+let tree1health = Math.random() * (3 - -7) + 1;
+
 let playerx = window.innerWidth / 2;
 let playery = window.innerHeight / 2;
 let worldx = 200;
@@ -59,11 +69,20 @@ document.addEventListener('keydown', function(event) {
         if (debuginput.value == "get50wood") {
             giveItem("wood", 50);
         }
+        if (debuginput.value == "get50stone") {
+            giveItem("stone", 50);
+        }
         if (debuginput.value == "noti") {
             notifi("notification test");
         }
-        if (debuginput.value == "infwood") {
+        if (debuginput.value == "infblock") {
             infwood = infwood ? false : true;
+        }
+        if (debuginput.value == "remove") {
+            removeItem();
+        }
+        if (debuginput.value == "rock") {
+            giveItem("stone", 1);
         }
         debuginput.value = "";
     }
@@ -90,7 +109,8 @@ document.addEventListener('mousedown', function(event) {
     if (View === 2 && debugmenu == false) {
         let mouseX = event.clientX;
         let mouseY = event.clientY;
-        
+        let slot = inventory[CurrentItem - 1];
+
         let tree1Rect = tree1.getBoundingClientRect();
         if (mouseX >= tree1Rect.left && mouseX <= tree1Rect.right &&
             mouseY >= tree1Rect.top && mouseY <= tree1Rect.bottom) {
@@ -101,86 +121,43 @@ document.addEventListener('mousedown', function(event) {
             } else {
                 tree1health -= 1;
                 giveItem("wood", 1);
+                if (infwood) {
+                    tree1offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+                    tree1offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+                    tree1health = Math.random() * (5 - 1) + 1;
+                } else {
+                    tree1.style.display = 'none';
+                    return;
+                }
                 tree1.style.display = 'none';
                 return;
             }
-        }
+        }    
 
-        let tree2Rect = tree2.getBoundingClientRect();
-        if (mouseX >= tree2Rect.left && mouseX <= tree2Rect.right &&
-            mouseY >= tree2Rect.top && mouseY <= tree2Rect.bottom) {
-            if (tree2health >= 2) {
-                tree2health -= 1;
-                giveItem("wood", 1);
+        let rock1Rect = rock1.getBoundingClientRect();
+        if (mouseX >= rock1Rect.left && mouseX <= rock1Rect.right &&
+            mouseY >= rock1Rect.top && mouseY <= rock1Rect.bottom) {
+            if (rock1health >= 2) {
+                rock1health -= 1;
+                giveItem("stone", 1);
                 return;
             } else {
-                tree2health -= 1;
-                giveItem("wood", 1);
+                rock1health -= 1;
+                giveItem("stone", 1);
                 if (infwood) {
-                    tree2.style.top = worldy + Math.random() * (1000 - -1000) + -1000;
-                    tree2.style.left = worldx + Math.random() * (1000 - -1000) + -100;
+                    rock1offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+                    rock1offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+                    rock1health = Math.random() * (5 - 1) + 1;
+                    return;
                 } else {
-                    tree2.style.display = 'none';
+                    rock1.style.display = 'none';
+                    return;
                 }
+                rock1.style.display = 'none';
                 return;
             }
-        }
-
-        let tree3Rect = tree3.getBoundingClientRect();
-        if (mouseX >= tree3Rect.left && mouseX <= tree3Rect.right &&
-            mouseY >= tree3Rect.top && mouseY <= tree3Rect.bottom) {
-            if (tree3health >= 2) {
-                tree3health -= 1;
-                giveItem("wood", 1);
-                return;
-            } else {
-                tree3health -= 1;
-                giveItem("wood", 1);
-                if (infwood) {
-                    tree3.style.top = worldy + Math.random() * (1000 - -1000) + -1000;
-                    tree3.style.left = worldx + Math.random() * (1000 - -1000) + -100;
-                } else {
-                    tree3.style.display = 'none';
-                }
-                tree3.style.display = 'none';
-                return;
-            }
-        }
-        
-        for (let i = 0; i < inventory.length; i++) {
-            let slot = inventory[i];
-            if (slot.element) {
-                let slotRect = slot.element.getBoundingClientRect();
-                if (mouseX >= slotRect.left && mouseX <= slotRect.right &&
-                    mouseY >= slotRect.top && mouseY <= slotRect.bottom) {
-                    giveItem("wood", 1);
-                    break;
-                }
-            }
-        }
-        
-        /*if (CurrentItemName != "") {
-            let slot = inventory[CurrentItem - 1];
-            if (slot.count < 11) {
-                slot.countElement.style.left = "70%";
-            }
-            if (slot.count > 1) {
-                slot.count -= 1;
-                slot.countElement.textContent = slot.count;
-                slot.countElement.style.display = 'block';
-            } else {
-                if (slot.count == 1) {
-                    slot.countElement.style.display = 'none';
-                    slot.count -= 1;
-                } else {
-                    if (slot.count == 0) {
-                        woodhold.style.display = 'none';
-                        slot.woodElement.style.display = 'none';
-                        slot.item = "";
-                    }
-                }
-            }
-        } */
+        } 
+        //placeblock(event.clientX, event.clientY);
     }
 });
 
@@ -202,7 +179,7 @@ function notifi(notificationText) {
     let intervalId = setInterval(function() {
         notification.style.top = i + "px";
         opacity += 0.05;
-        notification.style.opacity = opacity;
+        notification.style.opacity = opacity;  
         i -= 1;
 
         if (i <= 500) {
@@ -231,8 +208,18 @@ function updateCurrentItemStyle(slotNumber) {
         }
     }
     let selectedSlotItem = inventory[slotNumber - 1].item;
-    CurrentItemName = selectedSlotItem === "wood" ? "wood" : "";
-    woodhold.style.display = CurrentItemName === "wood" ? 'block' : 'none';
+    if (selectedSlotItem == "wood") {
+        woodhold.style.display = "block";
+        stonehold.style.display = "none";
+    }
+    if (selectedSlotItem == "stone") {
+        stonehold.style.display = "block";
+        woodhold.style.display = "none";
+    }
+    if (selectedSlotItem == "") {
+        stonehold.style.display = "none";
+        woodhold.style.display = "none";
+    }
 }
 
 function initializeInventorySlots() {
@@ -242,11 +229,13 @@ function initializeInventorySlots() {
             count: 0,
             element: document.getElementById(`inv-${i + 1}`),
             countElement: document.getElementById(`inv-${i + 1}-count`),
-            woodElement: document.getElementById(`inv-${i + 1}-wood`)
+            woodElement: document.getElementById(`inv-${i + 1}-wood`),
+            stoneElement: document.getElementById(`inv-${i + 1}-stone`)
         };
         if (slot.element) slot.element.style.display = 'block';
         if (slot.countElement) slot.countElement.style.display = 'none';
         if (slot.woodElement) slot.woodElement.style.display = 'none';
+        if (slot.stoneElement) slot.stoneElement.style.display = 'none';
         inventory.push(slot);
     }
 }
@@ -259,27 +248,80 @@ function giveItem(itemType, number) {
     }
     let i = 0;
     while (i < number) {
-        if (slot && slot.woodElement && slot.countElement) {
-            if (slot.item === itemType || slot.item === "") {
-                slot.woodElement.style.display = 'block';
-                slot.item = itemType;
-                woodhold.style.display = 'block';
-                CurrentItemName = "wood"
-                slot.count++;
-                if (slot.count > 1) {
-                    slot.countElement.style.display = 'block';
-                    slot.countElement.textContent = slot.count;
-                }
-                if (slot.count > 9) {
-                    slot.countElement.style.left = "50%";
+        if (itemType == "wood") {
+            if (slot && slot.woodElement && slot.countElement) {
+                if (slot.item === itemType || slot.item === "") {
+                    slot.woodElement.style.display = 'block';
+                    slot.item = itemType;
+                    woodhold.style.display = 'block';
+                    stonehold.style.display = 'none';
+                    CurrentItemName = "wood"
+                    slot.count++;
+                    if (slot.count > 1) {
+                        slot.countElement.style.display = 'block';
+                        slot.countElement.textContent = slot.count;
+                    }
+                    if (slot.count > 9) {
+                        slot.countElement.style.left = "50%";
+                    }
+                } else {
+                    notifi("you already got a item in that slot");
                 }
             } else {
-                notifi("you already got a item in that slot");
+                notifi("slot or required elements not properly initialized");
             }
-        } else {
-            notifi("Slot or required elements not properly initialized.");
+        } 
+        else if (itemType == "stone") {
+            if (slot && slot.stoneElement && slot.countElement) {
+                if (slot.item === itemType || slot.item === "") {
+                    slot.stoneElement.style.display = 'block';
+                    slot.item = itemType;
+                    stonehold.style.display = 'block';
+                    woodhold.style.display = 'none';
+                    CurrentItemName = "stone"
+                    slot.count++;
+                    if (slot.count > 1) {
+                        slot.countElement.style.display = 'block';
+                        slot.countElement.textContent = slot.count;
+                    }
+                    if (slot.count > 9) {
+                        slot.countElement.style.left = "50%";
+                    }
+                } else {
+                    notifi("you already got a item in that slot");
+                }
+            } else {
+                notifi("slot or required elements not properly initialized");
+            }
         }
         i++;
+    }
+}
+
+function removeItem() {
+    let slot = inventory[CurrentItem - 1]; 
+    if (CurrentItemName != "") {
+        let slot = inventory[CurrentItem - 1];
+        if (slot.count < 11) {
+            slot.countElement.style.left = "70%";
+        }
+        if (slot.count > 2) {
+            slot.count -= 1;
+            slot.countElement.textContent = slot.count;
+            slot.countElement.style.display = 'block';
+        } else {
+            if (slot.count == 2) {
+                slot.countElement.style.display = 'none';
+                slot.count -= 1;
+            } else {
+                if (slot.count == 1) {
+                    slot.count -= 1;
+                    woodhold.style.display = 'none';
+                    slot.woodElement.style.display = 'none';
+                    slot.item = "";
+                }
+            }
+        }
     }
 }
 
@@ -298,27 +340,36 @@ function movePlayer() {
         if (keys['m']) minushealth(10);
     }
     requestAnimationFrame(movePlayer);
-    tree1.style.left = worldx + "px";
-    tree1.style.top = worldy + "px";
-    tree2.style.left = worldx + tree2offsetx + "px";
-    tree2.style.top = worldy + tree2offsety + "px";
-    tree3.style.left = worldx + tree3offsetx + "px";
-    tree3.style.top = worldy + tree3offsety + "px";
+    
+    rock1.style.left = worldx + rock1offsetx + "px";
+    rock1.style.top = worldy + rock1offsety + "px";
+
+    tree1.style.left = worldx + tree1offsetx + "px";
+    tree1.style.top = worldy + rock1offsety + "px";
+
+    for (let i = 0; i < totaltrees; i++) {
+        currenttree = document.getElementById("tree_" + i);
+        
+        currenttree.style.left = worldx + currenttree.offsetx + "px";
+        currenttree.style.top = worldy + currenttree.offsety + "px";
+    }
 }
 
-function start() {
+function start() {    
     initializeInventorySlots();
     debuginput = document.getElementById("debug-input");
-    tree1 = document.getElementById("tree1");
-    tree2 = document.getElementById("tree2");
-    tree3 = document.getElementById("tree3");
+    rock1 = document.getElementById("rock1");
     player = document.getElementById("player");
     health = document.getElementById("health-value");
     healthbar = document.getElementById("health-bar");
     woodhold = document.getElementById("wood-hold");
+    stonehold = document.getElementById("stone-hold");
     versiontext = document.getElementById("version");
     patchnotetitle = document.getElementById("patch");
     notification = document.getElementById("noti");
+    tree1 = document.getElementById("tree1");
+
+    gentrees();
 
     for (let i = 0; i < 6; i++) {
         inventory[i].element = document.getElementById(`inv-${i + 1}`);
@@ -353,21 +404,17 @@ function start() {
     healthbar.style.left = window.innerWidth / 100 * 35 + "px";
     
     notification.style.display = 'none';
+
+    tree1.style.display = 'none';
     
     document.getElementById("patch-back").style.display = 'none';
     
     versiontext.style.marginBottom = window.innerHeight / 100 * 50 + "px";
     
-    if (!tree1 || !tree2) {
-        console.error("tree elements not found");
-        return;
-    }
-    
     health.style.display = 'none';
     healthbar.style.display = 'none';
-    tree1.style.display = 'none';
-    tree2.style.display = 'none';
-    tree3.style.display = 'none';
+
+    rock1.style.display = 'none';
     
     document.getElementById("patch1").style.display = 'none';
     document.getElementById("patch2").style.display = 'none';
@@ -379,6 +426,7 @@ function start() {
     });
 
     woodhold.style.display = 'none';
+    stonehold.style.display = 'none';
     
     debuginput.style.display = 'none';
 
@@ -402,11 +450,12 @@ function view2() {
     document.getElementById("title").style.display = 'none';
     document.getElementById("start-button").style.display = 'none';
     player.style.display = 'block';
-    tree1.style.display = 'block';
-    tree2.style.display = 'block';
-    tree3.style.display = 'block';
+
+    rock1.style.display = 'block';
+
     health.style.display = 'block';
     healthbar.style.display = 'block';
+    tree1.style.display = 'block';
 
     document.getElementById("inv-1").style.display = 'block';
     document.getElementById("inv-2").style.display = 'block';
@@ -416,6 +465,22 @@ function view2() {
     document.getElementById("inv-6").style.display = 'block';
     document.getElementById("patch-button").style.display = 'none';
     document.getElementById("patch-back").style.display = 'none';
+
+    for (let i = 0; i < totaltrees; i++) {
+        currenttree = document.getElementById("tree_" + i);
+        currenttree.style.display = 'block';
+
+        currenttree.style.top = worldy + currenttree.offsety + "px";
+        currenttree.style.left = worldx + currenttree.offsetx + "px";
+    }
+
+    for (let i = 0; i < placedblocks; i++) {
+        placedblock = document.getElementById("placedwood" + i);
+        placedblock.style.display = 'block';
+
+        placedblock.style.top = worldy + placedblock.offsety + "px";
+        placedblock.style.left = worldx + placedblock.offsetx + "px";
+    }
 }
 
 function view3() {
@@ -429,3 +494,67 @@ function view3() {
     document.getElementById("patch2").style.display = 'block';
     document.getElementById("patch-back").style.display = 'block';
 }
+
+function gentrees() {
+    for (let i = 0; i < totaltrees; i++) {
+        console.log("trees");
+        let newtree = document.createElement("div");
+
+        newtree.id = "tree_" + i;
+        const container = document.getElementById("html-body");
+
+        newtree.style.display = 'none';
+        newtree.style.height = 50 + "px";
+        newtree.style.width = 50 + "px";
+        newtree.style.position = "absolute";
+
+        newtree.health = Math.random() * (5 - 1) + 1;
+
+        newtree.offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+        newtree.offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+
+        newtree.classList.add('tree');
+
+
+        newtree.addEventListener('mousedown', function() {
+            if (newtree.health >= 2) {
+                newtree.health -= 1;
+                giveItem("wood", 1);
+            } else {
+                newtree.health -= 1;
+                giveItem("wood", 1);
+                newtree.style.display = 'none';
+            }
+        });
+
+        container.appendChild(newtree);
+    }
+}
+
+function placeblock(mousex, mousey) {
+    let slot = inventory[CurrentItem - 1]; 
+    if (slot.item === "wood") {
+        let placedblock = document.createElement("div");
+
+        placedblock.id = "placedwood" + placedblocks;
+        placedblock.classList.add('placedwood');
+        const container = document.getElementById("html-body");
+
+        placedblock.style.display = "block";
+        placedblock.style.height = 50 + "px";
+        placedblock.style.width = 50 + "px";
+        placedblock.style.position = "absolute";
+        placedblock.style.background = "#925b00";
+
+        placedblock.style.left = (mousex - worldx - 25) + "px";
+        placedblock.style.top = (mousey - worldy - 25) + "px"; 
+
+        placedblock.offsetx = worldx;
+        placedblock.offsety = worldy;
+
+        container.appendChild(placedblock);
+        placedblocks++;
+        removeItem();
+    }
+}
+
