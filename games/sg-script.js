@@ -11,7 +11,7 @@ let stonehold = null;
 let tree1 = null;
 
 let totaltrees = 500;
-let totalstone = 100;
+let totalstone = 200;
 
 let worldmax = 2500;
 
@@ -42,6 +42,7 @@ canminus = true;
 
 debugmenu = false;
 infwood = false;
+cannotifi = true;
 
 let patchnotetitle = null;
 
@@ -110,6 +111,7 @@ document.addEventListener('mousedown', function(event) {
         let mouseX = event.clientX;
         let mouseY = event.clientY;
         let slot = inventory[CurrentItem - 1];
+        console.log(event.target.id);
 
         let tree1Rect = tree1.getBoundingClientRect();
         if (mouseX >= tree1Rect.left && mouseX <= tree1Rect.right &&
@@ -156,37 +158,43 @@ document.addEventListener('mousedown', function(event) {
                 rock1.style.display = 'none';
                 return;
             }
-        } 
-        //placeblock(event.clientX, event.clientY);
+        }
+        if (event.target.id == "html-body") {
+            placeblock(event.clientX, event.clientY);
+        }
     }
 });
 
 
 
 function notifi(notificationText) {
-    let notification = document.getElementById("noti");
-    notification.style.display = 'block';
-    notification.style.textAlign = 'center';
-    notification.textContent = notificationText;
-    notification.style.opacity = '0';
+    if (cannotifi) {
+        cannotifi = false;
+        let notification = document.getElementById("noti");
+        notification.style.display = 'block';
+        notification.style.textAlign = 'center';
+        notification.textContent = notificationText;
+        notification.style.opacity = '0';
     
-    notification.style.top = "200px";
+        notification.style.top = "200px";
 
-    let i = 600;
-    let opacity = 0.05;
-    notification.style.top = i + "px";
-
-    let intervalId = setInterval(function() {
+        let i = 600;
+        let opacity = 0.05;
         notification.style.top = i + "px";
-        opacity += 0.05;
-        notification.style.opacity = opacity;  
-        i -= 1;
 
-        if (i <= 500) {
-            clearInterval(intervalId);
-            notification.style.display = 'none';
-        }
-    }, 20);
+        let intervalId = setInterval(function() {
+            notification.style.top = i + "px";
+            opacity += 0.05;
+            notification.style.opacity = opacity;  
+            i -= 1;
+
+            if (i <= 500) {
+                clearInterval(intervalId);
+                notification.style.display = 'none';
+            }
+        }, 20);
+        cannotifi = true;
+    }
 }
 
 function minushealth(minus) {
@@ -353,6 +361,19 @@ function movePlayer() {
         currenttree.style.left = worldx + currenttree.offsetx + "px";
         currenttree.style.top = worldy + currenttree.offsety + "px";
     }
+    for (let i = 0; i < totalstone; i++) {
+        currenttree = document.getElementById("stone_" + i);
+        
+        currenttree.style.left = worldx + currenttree.offsetx + "px";
+        currenttree.style.top = worldy + currenttree.offsety + "px";
+    }
+    for (let i = 0; i < placedblocks; i++) {
+        currenttree = document.getElementById("placedwood_" + i);
+        
+        currenttree.style.left = worldx + currenttree.offsetx + "px";
+        currenttree.style.top = worldy + currenttree.offsety + "px";
+    }
+
 }
 
 function start() {    
@@ -370,6 +391,7 @@ function start() {
     tree1 = document.getElementById("tree1");
 
     gentrees();
+    genstone();
 
     for (let i = 0; i < 6; i++) {
         inventory[i].element = document.getElementById(`inv-${i + 1}`);
@@ -474,12 +496,22 @@ function view2() {
         currenttree.style.left = worldx + currenttree.offsetx + "px";
     }
 
+    for (let i = 0; i < totalstone; i++) {
+        currenttree = document.getElementById("stone_" + i);
+        currenttree.style.display = 'block';
+
+        currenttree.style.top = worldy + currenttree.offsety + "px";
+        currenttree.style.left = worldx + currenttree.offsetx + "px";
+    }
+
     for (let i = 0; i < placedblocks; i++) {
         placedblock = document.getElementById("placedwood" + i);
         placedblock.style.display = 'block';
 
         placedblock.style.top = worldy + placedblock.offsety + "px";
         placedblock.style.left = worldx + placedblock.offsetx + "px";
+        console.log(placedblock.offsety);
+        console.log("sussy");
     }
 }
 
@@ -517,12 +549,50 @@ function gentrees() {
 
 
         newtree.addEventListener('mousedown', function() {
+            if (event.target.id != "html-body") {
+                if (newtree.health >= 2) {
+                    newtree.health -= 1;
+                    giveItem("wood", 1);
+                } else {
+                    newtree.health -= 1;
+                    giveItem("wood", 1);
+                    newtree.style.display = 'none';
+                }
+            }
+        });
+
+        container.appendChild(newtree);
+    }
+}
+
+function genstone() {
+    for (let i = 0; i < totalstone; i++) {
+        console.log("stone");
+        let newtree = document.createElement("div");
+
+        newtree.id = "stone_" + i;
+        const container = document.getElementById("html-body");
+
+        newtree.style.display = 'none';
+        newtree.style.height = 50 + "px";
+        newtree.style.width = 50 + "px";
+        newtree.style.position = "absolute";
+
+        newtree.health = Math.random() * (7 - 3) + 1;
+
+        newtree.offsetx = Math.random() * (worldmax - -worldmax) + -worldmax;
+        newtree.offsety = Math.random() * (worldmax - -worldmax) + -worldmax;
+
+        newtree.classList.add('stone');
+
+
+        newtree.addEventListener('mousedown', function() {
             if (newtree.health >= 2) {
                 newtree.health -= 1;
-                giveItem("wood", 1);
+                giveItem("stone", 1);
             } else {
                 newtree.health -= 1;
-                giveItem("wood", 1);
+                giveItem("stone", 1);
                 newtree.style.display = 'none';
             }
         });
@@ -541,13 +611,6 @@ function placeblock(mousex, mousey) {
         const container = document.getElementById("html-body");
 
         placedblock.style.display = "block";
-        placedblock.style.height = 50 + "px";
-        placedblock.style.width = 50 + "px";
-        placedblock.style.position = "absolute";
-        placedblock.style.background = "#925b00";
-
-        placedblock.style.left = (mousex - worldx - 25) + "px";
-        placedblock.style.top = (mousey - worldy - 25) + "px"; 
 
         placedblock.offsetx = worldx;
         placedblock.offsety = worldy;

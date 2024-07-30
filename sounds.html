@@ -15,6 +15,7 @@
     <audio id="siko" src="sounds/siko.mp3"></audio>
     <audio id="taco" src="sounds/taco.mp3"></audio>
     <audio id="cutmeoff" src="sounds/cutmeoff.mp3"></audio>
+    <audio id="getout" src="sounds/get-out.mp3"></audio>
     <h1>funny sounds</h1>
     <button onclick="vineboom()">vine boom</button>
     <button onclick="bruh()">bruh</button>
@@ -28,6 +29,7 @@
     <button onclick="siko()">siko mode</button>
     <button onclick="taco()">taco bell</button>
     <button onclick="cut()">you didnt have to cut me off</button>
+    <button onclick="getout()">GET OUT</button>
 
     <script>
       function vineboom() {
@@ -87,6 +89,11 @@
 
       function cut() {
         var audio = document.getElementById("cutmeoff");
+        audio.play();
+      }
+
+      function getout() {
+        var audio = document.getElementById("getout");
         audio.play();
       }
     </script>

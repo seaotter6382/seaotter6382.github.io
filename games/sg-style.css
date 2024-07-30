@@ -221,6 +221,14 @@ html {
     transition: background-color 0.3s ease;
 }
 
+.stone {
+    height: 50px;
+    width: 50px;
+    background: #8f8f8f;
+    position: absolute;
+    transition: background-color 0.3s ease;
+}
+
 #rock1 {
     height: 50px;
     width: 50px;
