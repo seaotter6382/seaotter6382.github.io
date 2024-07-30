@@ -1,6 +1,19 @@
-<html>
-  <head>
+<html><head>
     <title>seaotter's sounds</title>
+    <style>
+        button {
+            font-size: 15px;
+            margin: 2px;
+        }
+        #version {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            color: gray;
+        }
+        #title {
+            margin-bottom: 2px;
+        }
+    </style>
   </head>
   <body>
     <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
@@ -16,84 +29,27 @@
     <audio id="taco" src="sounds/taco.mp3"></audio>
     <audio id="cutmeoff" src="sounds/cutmeoff.mp3"></audio>
     <audio id="get-out" src="sounds/get-out.mp3"></audio>
-    <h1>funny sounds</h1>
-    <button onclick="vineboom()">vine boom</button>
-    <button onclick="bruh()">bruh</button>
-    <button onclick="beep()">andrioid beep</button>
-    <button onclick="nlb()">nlb theme [LOUD]</button>
-    <button onclick="bill()">bill nye</button>
-    <button onclick="baby()">dababy</button>
-    <button onclick="india()">loud india music</button>
-    <button onclick="door()">open the noor</button>
-    <button onclick="fart()">big fart</button>
-    <button onclick="siko()">siko mode</button>
-    <button onclick="taco()">taco bell</button>
-    <button onclick="cut()">you didnt have to cut me off</button>
-    <button onclick="getout()">GET OUT</button>
+    <audio id="we-do-not-care" src="sounds/we-do-not-care.mp3"></audio>
+    <h1 id="title">funny sounds</h1>
+    <p id="version">version 1.0.0</p>
+    <button onclick="playsound('vine boom')">vine boom</button>
+    <button onclick="playsound('bruh')">bruh</button>
+    <button onclick="playsound('beep')">andrioid beep</button>
+    <button onclick="playsound('nbl')">nlb theme [LOUD]</button>
+    <button onclick="playsound('bill')">bill nye</button>
+    <button onclick="playsound('baby')">dababy</button>
+    <button onclick="playsound('india')">loud india music</button>
+    <button onclick="playsound('door')">open the noor</button>
+    <button onclick="playsound('fart')">big fart</button>
+    <button onclick="playsound('siko')">siko mode</button>
+    <button onclick="playsound('taco')">taco bell</button>
+    <button onclick="playsound('cutmeoff')">you didnt have to cut me off</button>
+    <button onclick="playsound('get-out')">GET OUT</button>
+    <button onclick="playsound('we-do-not-care')">we do not care</button>
 
     <script>
-      function vineboom() {
-        var audio = document.getElementById("vine boom");
-        audio.play();
-      }
-
-      function bruh() {
-        var audio = document.getElementById("bruh");
-        audio.play();
-      }
-
-      function beep() {
-        var audio = document.getElementById("beep");
-        audio.play();
-      }
-
-      function nlb() {
-        var audio = document.getElementById("nbl");
-        audio.play();
-      }
-
-      function bill() {
-        var audio = document.getElementById("bill");
-        audio.play();
-      }
-
-      function baby() {
-        var audio = document.getElementById("baby");
-        audio.play();
-      }
-
-      function india() {
-        var audio = document.getElementById("india");
-        audio.play();
-      }
-
-      function door() {
-        var audio = document.getElementById("door");
-        audio.play();
-      }
-
-      function fart() {
-        var audio = document.getElementById("fart");
-        audio.play();
-      }
-
-      function siko() {
-        var audio = document.getElementById("siko");
-        audio.play();
-      }
-
-      function taco() {
-        var audio = document.getElementById("taco");
-        audio.play();
-      }
-
-      function cut() {
-        var audio = document.getElementById("cutmeoff");
-        audio.play();
-      }
-
-      function getout() {
-        var audio = document.getElementById("get-out");
+      function playsound(audioid) {
+        let audio = document.getElementById(audioid);
         audio.play();
       }
     </script>
