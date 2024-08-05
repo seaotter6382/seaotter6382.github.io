@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,26 +18,26 @@
         }
 
         .content {
-            flex: 1; 
-            overflow: auto; 
+            flex: 1;
+            overflow: auto;
             padding: 10px;
-            box-sizing: border-box; 
+            box-sizing: border-box;
             display: flex;
-            flex-direction: column-reverse; 
+            flex-direction: column-reverse;
         }
 
         .input-container {
             padding: 10px;
             background: #f4f4f4;
-            border-top: 1px solid #ddd; 
-            box-sizing: border-box; 
+            border-top: 1px solid #ddd;
+            box-sizing: border-box;
         }
 
         input {
-            width: 100%; 
+            width: 100%;
             padding: 10px;
             font-size: 16px;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
 
         p {
@@ -44,7 +45,6 @@
             margin: 5px 0;
         }
     </style>
-    <script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-GQ8RW0HS6X" async=""></script>
 </head>
 <body>
     <div class="container">
@@ -53,10 +53,9 @@
             <input type="text" id="myInput" placeholder="enter a username">
         </div>
     </div>
-
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-        import { getDatabase, ref, onChildAdded, push, remove, onDisconnect } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+        import { getDatabase, ref, set, remove, onDisconnect, onValue, onChildAdded, push } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBCPXjNMYTiwZu_EQ6YvpTeKFVkeWIbQjo",
@@ -72,51 +71,79 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        //huge thanks to chatgpt and google for making this work!
+        const userId = Date.now(); 
+        const userStatusRef = ref(database, 'users/' + userId);
+        const usersRef = ref(database, 'users');
+        const messagesRef = ref(database, 'messages');
+
+        function appendMessage(messageData) {
+            const content = document.getElementById('content');
+            const newParagraph = document.createElement('p');
+            newParagraph.textContent = `${messageData.username}: ${messageData.message}`;
+            content.prepend(newParagraph);
+            content.scrollTop = content.scrollHeight;
+        }
+
+        function checkAndClearMessages() {
+            const db = getDatabase();
+            const dbRef = ref(db);
+            onValue(usersRef, (snapshot) => {
+                const users = snapshot.val();
+                if (!users || Object.keys(users).length === 0) {
+                    remove(dbRef);
+                }
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const input = document.getElementById('myInput');
-            const content = document.getElementById('content');
+            const db = getDatabase();
+            const dbRef = ref(db);
             let username = "";
-            let userMessagesRef = null;
 
-            function handleMessageInput(event) {
+            input.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     const inputValue = input.value.trim();
-                    if (inputValue !== '') {
-                        push(userMessagesRef, {
-                            message: inputValue,
-                            timestamp: Date.now()
-                        });
-                        input.value = '';
-                    }
-                }
-            }
-
-            input.addEventListener('keypress', (event) => {
-                if (username === "") {
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        const inputValue = input.value.trim();
+                    if (username === "") {
                         if (inputValue !== '') {
                             username = inputValue;
-                            userMessagesRef = ref(database, `messages/${username}`);
                             input.value = '';
                             input.placeholder = "enter some text";
-                            
-                            onChildAdded(userMessagesRef, (snapshot) => {
+                            input.focus();
+
+                            onChildAdded(messagesRef, (snapshot) => {
                                 const messageData = snapshot.val();
-                                const newParagraph = document.createElement('p');
-                                newParagraph.textContent = `${username}: ${messageData.message}`;
-                                content.prepend(newParagraph);
+                                appendMessage(messageData);
                             });
 
-                            onDisconnect(userMessagesRef).remove();
+                            checkAndClearMessages();
+                        }
+                        if (inputValue == 'system.clear()') {
+                            input.value = '';
+                            input.focus();
+                            remove(dbRef);
+                            console.log("deleted stuff");
+                        }
+                    } else {
+                        if (inputValue !== '') {
+                            push(messagesRef, {
+                                username: username,
+                                message: inputValue,
+                                timestamp: Date.now()
+                            });
+                            input.value = '';
                         }
                     }
-                } else {
-                    handleMessageInput(event);
+                }
+            });
+
+            onValue(usersRef, (snapshot) => {
+                const db = getDatabase();
+                const dbRef = ref(db);
+                const users = snapshot.val();
+                if (!users || Object.keys(users).length === 0) {
+                    remove(dbRef); 
                 }
             });
         });
