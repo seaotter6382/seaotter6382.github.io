@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seaotter's chat thingy</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .content {
+            flex: 1; 
+            overflow: auto; 
+            padding: 10px;
+            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column-reverse; 
+        }
+
+        .input-container {
+            padding: 10px;
+            background: #f4f4f4;
+            border-top: 1px solid #ddd; 
+            box-sizing: border-box; 
+        }
+
+        input {
+            width: 100%; 
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box; 
+        }
+
+        p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+    </style>
+    <script src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=G-GQ8RW0HS6X" async=""></script>
+</head>
+<body>
+    <div class="container">
+        <div class="content" id="content"></div>
+        <div class="input-container">
+            <input type="text" id="myInput" placeholder="enter a username">
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
+        import { getDatabase, ref, onChildAdded, push, remove, onDisconnect } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCPXjNMYTiwZu_EQ6YvpTeKFVkeWIbQjo",
+            authDomain: "chat-658b0.firebaseapp.com",
+            databaseURL: "https://chat-658b0-default-rtdb.firebaseio.com",
+            projectId: "chat-658b0",
+            storageBucket: "chat-658b0.appspot.com",
+            messagingSenderId: "487721558396",
+            appId: "1:487721558396:web:e7e6757f64576e737d84f9",
+            measurementId: "G-GQ8RW0HS6X"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        //huge thanks to chatgpt and google for making this work!
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('myInput');
+            const content = document.getElementById('content');
+            let username = "";
+            let userMessagesRef = null;
+
+            function handleMessageInput(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const inputValue = input.value.trim();
+                    if (inputValue !== '') {
+                        push(userMessagesRef, {
+                            message: inputValue,
+                            timestamp: Date.now()
+                        });
+                        input.value = '';
+                    }
+                }
+            }
+
+            input.addEventListener('keypress', (event) => {
+                if (username === "") {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        const inputValue = input.value.trim();
+                        if (inputValue !== '') {
+                            username = inputValue;
+                            userMessagesRef = ref(database, `messages/${username}`);
+                            input.value = '';
+                            input.placeholder = "enter some text";
+                            
+                            onChildAdded(userMessagesRef, (snapshot) => {
+                                const messageData = snapshot.val();
+                                const newParagraph = document.createElement('p');
+                                newParagraph.textContent = `${username}: ${messageData.message}`;
+                                content.prepend(newParagraph);
+                            });
+
+                            onDisconnect(userMessagesRef).remove();
+                        }
+                    }
+                } else {
+                    handleMessageInput(event);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
