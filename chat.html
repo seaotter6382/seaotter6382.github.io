@@ -23,7 +23,7 @@
             padding: 10px;
             box-sizing: border-box;
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column;
         }
 
         .input-container {
@@ -55,7 +55,7 @@
     </div>
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-        import { getDatabase, ref, set, remove, onDisconnect, onValue, onChildAdded, push } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+        import { getDatabase, ref, push, onChildAdded } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBCPXjNMYTiwZu_EQ6YvpTeKFVkeWIbQjo",
@@ -68,84 +68,71 @@
             measurementId: "G-GQ8RW0HS6X"
         };
 
-        //this is real sus
-
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-
-        const userId = Date.now(); 
-        const userStatusRef = ref(database, 'users/' + userId);
-        const usersRef = ref(database, 'users');
         const messagesRef = ref(database, 'messages');
+
+        let currentUsername = "";
 
         function appendMessage(messageData) {
             const content = document.getElementById('content');
             const newParagraph = document.createElement('p');
-            newParagraph.textContent = `${messageData.username}: ${messageData.message}`;
-            content.prepend(newParagraph);
-            content.scrollTop = content.scrollHeight;
-        }
 
-        function checkAndClearMessages() {
-            const db = getDatabase();
-            const dbRef = ref(db);
-            onValue(usersRef, (snapshot) => {
-                const users = snapshot.val();
-                if (!users || Object.keys(users).length === 0) {
-                    remove(dbRef);
-                }
-            });
+            if (messageData.username === 'System') {
+                newParagraph.style.fontStyle = 'italic';
+                newParagraph.style.color = 'gray';
+            }
+
+            const date = new Date(messageData.timestamp);
+            newParagraph.textContent = `${messageData.username}: ${messageData.message}`;
+
+            content.appendChild(newParagraph);
+            content.scrollTop = content.scrollHeight;
+
+            if (messageData.username === 'System' && messageData.message === `${currentUsername} has joined the chat.`) {
+                setTimeout(() => {
+                    content.appendChild(newParagraph); 
+                    content.scrollTop = content.scrollHeight;
+                    }, 100);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const input = document.getElementById('myInput');
-            const db = getDatabase();
-            const dbRef = ref(db);
-            let username = "";
 
             input.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     const inputValue = input.value.trim();
-                    if (username === "") {
+
+                    if (currentUsername === "") {
                         if (inputValue !== '') {
-                            username = inputValue;
+                            currentUsername = inputValue;
                             input.value = '';
                             input.placeholder = "enter some text";
                             input.focus();
+
+                            push(messagesRef, {
+                                username: 'System',
+                                message: `${currentUsername} has joined the chat.`,
+                                timestamp: Date.now()
+                            });
 
                             onChildAdded(messagesRef, (snapshot) => {
                                 const messageData = snapshot.val();
                                 appendMessage(messageData);
                             });
-
-                            checkAndClearMessages();
-                        }
-                        if (inputValue == 'system.clear()') {
-                            input.value = '';
-                            input.focus();
-                            remove(dbRef);
-                            console.log("deleted stuff");
                         }
                     } else {
                         if (inputValue !== '') {
                             push(messagesRef, {
-                                username: username,
+                                username: currentUsername,
                                 message: inputValue,
                                 timestamp: Date.now()
                             });
                             input.value = '';
                         }
                     }
-                }
-            });
-
-            onValue(usersRef, (snapshot) => {
-                const db = getDatabase();
-                const dbRef = ref(db);
-                const users = snapshot.val();
-                if (!users || Object.keys(users).length === 0) {
-                    remove(dbRef); 
                 }
             });
         });
