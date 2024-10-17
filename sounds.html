@@ -13,9 +13,13 @@
         #title {
             margin-bottom: 2px;
         }
+        #random {
+            background-color: yellow;
+        }
     </style>
   </head>
   <body>
+    <audio id="audio"></audio>
     <audio id="vine boom" src="sounds/vineboom.mp3"></audio>
     <audio id="bruh" src="sounds/bruh.mp3"></audio>
     <audio id="beep" src="sounds/beep.mp3"></audio>
@@ -33,6 +37,7 @@
     <audio id="gulp" src="sounds/gulp.mp3"></audio>
     <h1 id="title">funny sounds</h1>
     <p id="version">version 1.0.0</p>
+    <button id="random" onclick="playrandom()">PLAY RANDOM SOUND</button>
     <button onclick="playsound('vine boom')">vine boom</button>
     <button onclick="playsound('bruh')">bruh</button>
     <button onclick="playsound('beep')">andrioid beep</button>
@@ -53,6 +58,12 @@
       function playsound(audioid) {
         let audio = document.getElementById(audioid);
         audio.play();
+      }
+      function playrandom() {
+            const audioElements = document.querySelectorAll('audio');
+            const randomAudio = audioElements[Math.floor(Math.random() * audioElements.length)];
+            randomAudio.currentTime = 0; 
+            randomAudio.play();
       }
     </script>
   </body>
