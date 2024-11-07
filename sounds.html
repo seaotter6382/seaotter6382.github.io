@@ -16,6 +16,9 @@
         #random {
             background-color: yellow;
         }
+        #random2 {
+            background-color: purple;
+        }
     </style>
   </head>
   <body>
@@ -39,6 +42,7 @@
     <h1 id="title">funny sounds</h1>
     <p id="version">version 1.0.0</p>
     <button id="random" onclick="playrandom()">PLAY RANDOM SOUND</button>
+    <button id="random2" onclick="playrandomA()">PLAY RANDOM SOUND 100x</button>
     <button onclick="playsound('vine boom')">vine boom</button>
     <button onclick="playsound('bruh')">bruh</button>
     <button onclick="playsound('beep')">andrioid beep</button>
@@ -66,6 +70,11 @@
             const randomAudio = audioElements[Math.floor(Math.random() * audioElements.length)];
             randomAudio.currentTime = 0; 
             randomAudio.play();
+      }
+      function playrandomA() {
+            for (let i = 0; i < 100; i++) {
+                 playrandom();
+            }
       }
     </script>
   </body>
