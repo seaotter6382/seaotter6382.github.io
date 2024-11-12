@@ -72,7 +72,6 @@
       function playrandom() {
             const audioElements = document.querySelectorAll('audio');
             const randomAudio = audioElements[Math.floor(Math.random() * audioElements.length)];
-            randomAudio.currentTime = 0; 
             randomAudio.play();
       }
       function playrandomA() {
