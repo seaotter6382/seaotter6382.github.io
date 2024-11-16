@@ -53,6 +53,7 @@
             <input type="text" id="myInput" placeholder="enter a username" maxlength=100>
         </div>
     </div>
+    <audio id="ding-dong" src="sounds/ding-dong.mp3"></audio>
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
         import { getDatabase, ref, push, onChildAdded, set } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
@@ -95,6 +96,10 @@
                     content.appendChild(newParagraph); 
                     content.scrollTop = content.scrollHeight;
                     }, 100);
+            }
+            if (messageData.message === "/playsound DING_DONG") {
+                let sound = document.getElementById("ding-dong");
+                sound.play(); 
             }
         }
 
