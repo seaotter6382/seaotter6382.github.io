@@ -99,7 +99,7 @@
             }
             if (messageData.message.includes("/playsound ")) {
                 let command = messageData.message.split(' ');
-                let sound = commmand[1];
+                let sound = command[1];
                 let audioElement = document.createElement("audio");
                 audioElement.src = "sounds/" + sound + ".mp3";
                 audioElement.autoplay = true;
