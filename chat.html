@@ -97,10 +97,13 @@
                     content.scrollTop = content.scrollHeight;
                     }, 100);
             }
-            if (messageData.message === "/playsound DING_DONG") {
-                let sound = document.getElementById("ding-dong");
-                sound.play(); 
-            }
+            if (messageData.message.includes("/playsound ")) {
+                let command = messageData.message.split(' ');
+                let sound = commmand[1];
+                let audioElement = document.createElement("audio");
+                audioElement.src = "sounds/" + sound + ".mp3";
+                audioElement.autoplay = true;
+                document.body.appendChild(audioElement);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
