@@ -11,7 +11,7 @@ let stonehold = null;
 let tree1 = null;
 
 let totaltrees = 500;
-let totalstone = 200;
+let totalstone = 100;
 
 let worldmax = 2500;
 
