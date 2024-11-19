@@ -131,7 +131,7 @@
                         inputValue = '';
                         input.placeholder = "enter some text";
                     }
-                    if (hasPassword) {
+                    if (hasPassword || password != "") {
                         if (currentTime - lastMessageTime >= coolDown) {
                         if (currentUsername === "") {
                             if (inputValue !== '' && inputValue !== "System") {
