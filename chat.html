@@ -115,6 +115,9 @@
         }
         let lastMessageTime = Date.now();
         let hasPassword = false;
+        if (password == "") {
+            hasPassword = true;
+        }
         const coolDown = 500;
         document.addEventListener('DOMContentLoaded', () => {
         updateConnectionCount();
