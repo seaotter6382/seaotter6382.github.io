@@ -89,6 +89,14 @@
                     content.scrollTop = content.scrollHeight;
                     }, 100);
             }
+            if (messageData.message.includes("/playsound ")) {
+                let command = messageData.message.split(' ');
+                let sound = command[1];
+                let audioElement = document.createElement("audio");
+                audioElement.src = "sounds/" + sound + ".mp3";
+                audioElement.autoplay = true;
+                document.body.appendChild(audioElement);
+            }
         }
         let lastMessageTime = Date.now();
         const coolDown = 500;
