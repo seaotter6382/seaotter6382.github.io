@@ -51,7 +51,7 @@
         <div class="content" id="content"></div>
         <div class="input-container">
             <p id="users">[X] active user</p>
-            <input type="text" id="myInput" placeholder="enter a username" maxlength=100>
+            <input type="text" id="myInput" placeholder="enter password" maxlength=100>
         </div>
     </div>
     <script type="module">
@@ -71,6 +71,20 @@
         const database = getDatabase(app);
         const dbRef = ref(database);
         const messagesRef = ref(database, 'messages');
+        let passwordRef = ref(database, 'password');
+        let password = "";
+        get(passwordRef)
+            .then((snapshot) => {
+            if (snapshot.exists()) {
+                password = snapshot.val();
+                console.log(password);
+            } else {
+                console.log("No data available");
+            }
+        })
+            .catch((error) => {
+                console.error("Error fetching password:", error);
+        });
         let currentUsername = "";
         function appendMessage(messageData) {
             const content = document.getElementById('content');
@@ -100,44 +114,58 @@
             }
         }
         let lastMessageTime = Date.now();
-        const coolDown = 3000;
+        let hasPassword = false;
+        const coolDown = 500;
         document.addEventListener('DOMContentLoaded', () => {
         updateConnectionCount();
             const input = document.getElementById('myInput');
             input.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
-                    const inputValue = input.value.trim();
+                    let inputValue = input.value.trim();
                     let currentTime = Date.now();
-                    if (currentTime - lastMessageTime >= coolDown) {
-                    if (currentUsername === "") {
-                        if (inputValue !== '' && inputValue !== "System") {
-                            currentUsername = inputValue;
-                            input.value = '';
-                            input.placeholder = "enter some text";
-                            input.focus();
-                            push(messagesRef, {
-                                username: 'System',
-                                message: `${currentUsername} has joined the chat.`,
-                                timestamp: Date.now()
-                            });
-                            onChildAdded(messagesRef, (snapshot) => {
-                                const messageData = snapshot.val();
-                                appendMessage(messageData);
-                            });
+                    if (inputValue == password) {
+                        console.log("has password");
+                        hasPassword = true;
+                        input.value = '';
+                        inputValue = '';
+                        input.placeholder = "enter some text";
+                    }
+                    if (hasPassword) {
+                        if (currentTime - lastMessageTime >= coolDown) {
+                        if (currentUsername === "") {
+                            if (inputValue !== '' && inputValue !== "System") {
+                                currentUsername = inputValue;
+                                input.value = '';
+                                input.placeholder = "enter some text";
+                                input.focus();
+                                push(messagesRef, {
+                                    username: 'System',
+                                    message: `${currentUsername} has joined the chat.`,
+                                    timestamp: Date.now()
+                                });
+                                onChildAdded(messagesRef, (snapshot) => {
+                                    const messageData = snapshot.val();
+                                    appendMessage(messageData);
+                                });
+                            }
+                        } else {
+                            if (inputValue !== '') {
+                                push(messagesRef, {
+                                    username: currentUsername,
+                                    message: inputValue,
+                                    timestamp: Date.now()
+                                });
+                                input.value = '';
+                                set(messagesRef, null);
+                                lastMessageTime = currentTime;
+                            }
+                        }
                         }
                     } else {
-                        if (inputValue !== '') {
-                            push(messagesRef, {
-                                username: currentUsername,
-                                message: inputValue,
-                                timestamp: Date.now()
-                            });
-                            input.value = '';
-                            set(messagesRef, null);
-                            lastMessageTime = currentTime;
-                        }
-                    }
+                        console.log("no password");
+                        input.value = '';
+                        input.placeholder = "enter password";
                     }
                 }
             });
