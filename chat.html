@@ -170,6 +170,7 @@
                                     timestamp: Date.now()
                                 });
                                 input.value = '';
+                                set(messagesRef, null);
                                 lastMessageTime = currentTime;
                             }
                         }
