@@ -106,6 +106,10 @@
             } else {
                 newParagraph = document.createElement('p');
             }
+            if (messageData.message.includes("/dupe")) {
+                window.open('https://seaotter6382.github.io/chat', '_blank');
+                messageData.message = messageData.message.replace("/dupe", "mew");
+            }
             if (messageData.username === 'System') {
                 newParagraph.style.fontStyle = 'italic';
                 newParagraph.style.color = 'gray';
