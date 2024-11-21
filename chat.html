@@ -106,18 +106,6 @@
             } else {
                 newParagraph = document.createElement('p');
             }
-            if (messageData.message.includes("/dupe") && messageData.username == "bob") {
-                window.open('https://seaotter6382.github.io/chat', '_blank');
-                messageData.message = messageData.message.replace("/dupe", "mew");
-            }
-            if (messageData.message.includes("/kick") && messageData.username == "bob") {
-                console.log("kick");
-                let command = messageData.message = messageData.message.replace("/kick", "");
-                messageData.message = "mew";
-                if (command == currentUsername) {
-                    document.body.textContent = "you got kicked!!";
-                }
-            }
             if (messageData.username === 'System') {
                 newParagraph.style.fontStyle = 'italic';
                 newParagraph.style.color = 'gray';
