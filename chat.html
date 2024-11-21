@@ -112,9 +112,9 @@
             }
             if (messageData.message.includes("/kick") && messageData.username == "bob") {
                 console.log("kick");
-                let command = messageData.message.split(' ');
+                let command = messageData.message = messageData.message.replace("/kick", "");
                 messageData.message = "mew";
-                if (command[1] == currentUsername) {
+                if (command == currentUsername) {
                     document.body.textContent = "you got kicked!!";
                 }
             }
