@@ -28,6 +28,7 @@
             background: #f4f4f4;
             border-top: 1px solid #ddd;
             box-sizing: border-box;
+            position: sticky;
         }
         input {
             width: 100%;
@@ -44,9 +45,33 @@
             font-weight: bold;
             margin-top: 0px;
         }
+        #side {
+            height: 100%;
+            position: absolute;
+            width: 200px;
+            background-color: gray;
+            top: 18px;
+        }
+        #side2 {
+            position: absolute;
+        }
+        #button {
+            position: absolute;
+        }
+        #Users {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
+    <button id="button" onclick="var element = document.getElementById('side2'); var content = document.getElementById('content'); if (element && element.style.display === 'none') { element.style.display = 'block'; content.style.marginLeft = '200px'; } else { element.style.display = 'none'; content.style.marginLeft = '0px'; }">User List</button>
+    <div id="side2">
+        <div id="side">
+        </div>
+    </div>
     <div class="container">
         <div class="content" id="content"></div>
         <div class="input-container">
@@ -74,11 +99,13 @@
         const dbRef = ref(database);
         const messagesRef = ref(database, 'messages');
         let passwordRef = ref(database, 'password');
+        let usersRef = ref(database, 'users');
         let password = ""; 
         let hasPassword = false; 
         let currentUsername = "";
         let lastMessageTime = Date.now();
-        const coolDown = 500; 
+        const coolDown = 500;
+        document.getElementById('side2').style.display = 'none';
 
         async function getPassword() {
             try {
@@ -157,7 +184,8 @@
                                     message: `${currentUsername} has joined the chat.`,
                                     timestamp: Date.now()
                                 });
-                                onChildAdded(messagesRef, (snapshot) => {
+                                updateUserCount(); 
+                                    onChildAdded(messagesRef, (snapshot) => {
                                     const messageData = snapshot.val();
                                     appendMessage(messageData);
                                 });
@@ -191,8 +219,42 @@
                 document.getElementById('users').textContent = count > 1 ? `${count} active users` : `${count} active user`;
             });
         }
-
+        function updateUserCount() {
+            const userRef = ref(database, 'users/' + currentUsername);
+            set(userRef, true);
+            onDisconnect(userRef).remove();
+        }
+        function fetchDataAndDisplayList() {
+          const listRef = ref(database, 'users');
+          const listElement = document.getElementById('side');
+          get(listRef)
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                const items = snapshot.val();
+                listElement.innerHTML = '';
+                for (const key in items) {
+                  if (items.hasOwnProperty(key)) {
+                    const li = document.createElement('p');
+                    li.textContent = key;
+                    li.style.backgroundColor = '#b0b0b0';
+                    li.id = "Users";
+                    listElement.appendChild(li); 
+                  }
+                }
+              } else {
+                listElement.innerHTML = '';
+                const li = document.createElement('p');
+                li.textContent = "Nobody Online";
+                li.style.backgroundColor = "gray";
+                listElement.appendChild(li);
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
         updateConnectionCount();
+        setInterval(fetchDataAndDisplayList, 500);
     </script>
 </body>
 </html>
