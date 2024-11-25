@@ -143,7 +143,7 @@
                 let command = messageData.message.split(' ');
                 let sound = command[1];
                 let audioElement = document.createElement("audio");
-                audioElement.src = "sounds/" + sound + ".mp3";
+                audioElement.src = "https://raw.githubusercontent.com/seaotter6382/seaotter6382.github.io/refs/heads/main/sounds/" + sound + ".mp3";
                 audioElement.autoplay = true;
                 document.body.appendChild(audioElement);
                 console.log("0 is " + command[0] + " 1 is " + command[1]);
