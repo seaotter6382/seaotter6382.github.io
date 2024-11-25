@@ -39,6 +39,7 @@
         p {
             font-size: 18px;
             margin: 5px 0;
+            transition: ease 0.1s;
         }
         #users {
             color: green;
@@ -106,6 +107,7 @@
         let lastMessageTime = Date.now();
         const coolDown = 500;
         document.getElementById('side2').style.display = 'none';
+        document.getElementById("button").style.display = 'none';
 
         async function getPassword() {
             try {
@@ -184,6 +186,7 @@
                                     message: `${currentUsername} has joined the chat.`,
                                     timestamp: Date.now()
                                 });
+                                document.getElementById("button").style.display = 'block';
                                 updateUserCount(); 
                                     onChildAdded(messagesRef, (snapshot) => {
                                     const messageData = snapshot.val();
