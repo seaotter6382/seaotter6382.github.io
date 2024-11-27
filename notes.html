@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <style>
+            #note {
+                position: absolute;
+                height: 100px;
+                width: 100px;
+            }
+            textarea {
+                background-color: transparent;
+                border: 1px solid transparent;
+                color: black;
+                height: 100px;
+                width: 100px;
+                resize: none;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
+        import { getDatabase, ref, push, onDisconnect, get, child, onValue, set, onChildAdded } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAwgJPMyP9BUbxN-ndWhRYipqrsoMm7XWc",
+          authDomain: "notes-bbbeb.firebaseapp.com",
+          databaseURL: "https://notes-bbbeb-default-rtdb.firebaseio.com",
+          projectId: "notes-bbbeb",
+          storageBucket: "notes-bbbeb.firebasestorage.app",
+          messagingSenderId: "721831411127",
+          appId: "1:721831411127:web:9ade570f873810d2cb3c32",
+          measurementId: "G-2JL457BV81"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const dbRef = ref(database);
+        const notesRef = ref(database, 'notes');
+        let canCreate = true;
+
+        document.addEventListener("click", function(event) {
+            if (event.target.tagName.toLowerCase() == "button") { return };
+            if (!canCreate) { return };
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+            let newNote = document.createElement("div");
+            newNote.id = "note";
+            newNote.style.top = mouseY - 50;
+            newNote.style.left = mouseX - 50;
+            newNote.style.backgroundColor = "#" + ((1<<24) + (Math.floor(Math.random() * 80) + 100 << 16) + (Math.floor(Math.random() * 80) + 100 << 8) + (Math.floor(Math.random() * 80) + 100)).toString(16).slice(1);
+            let newInput = document.createElement("textarea");
+            newInput.setAttribute("maxlength", "66");
+            newInput.setAttribute("placeholder", "enter text");
+            let newButton = document.createElement("button");
+            newButton.innerText = "Sumbit";
+            newButton.style.backgroundColor = "lightgreen";
+            document.body.appendChild(newNote);
+            newNote.appendChild(newInput);
+            newNote.appendChild(newButton);
+            canCreate = false;
+            newButton.addEventListener("click", function() {
+                newNote.textContent = newInput.value;
+                canCreate = true;
+                push(notesRef, {
+                    message: newNote.textContent,
+                    color: newNote.style.backgroundColor,
+                    left: newNote.style.left,
+                    top: newNote.style.top
+                });
+                set(notesRef, null);
+            });
+        });
+        function createNote(data) {
+            let newNote = document.createElement("div");
+            newNote.id = "note";
+            newNote.style.top = data.top;
+            newNote.style.left = data.left;
+            newNote.style.backgroundColor = data.color;
+            newNote.textContent = data.message;
+            document.body.appendChild(newNote);
+        }
+        onChildAdded(notesRef, (snapshot) => {
+            const notesData = snapshot.val();
+            console.log(notesData);
+            createNote(notesData);
+        });
+    </script>
+</html>
