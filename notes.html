@@ -14,6 +14,15 @@
             width: 100px;
             resize: none;
             overflow: hidden;
+            word-wrap: break-word;
+        }
+        div, p {
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        button {
+            all: unset;
+            overflow: visible;
         }
     </style>
 </head>
@@ -86,6 +95,20 @@
                     user: auth.currentUser.uid 
                 });
                 set(notesRef, null);
+            });
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey && event.key == "Enter") {
+                    newNote.textContent = newInput.value;
+                    canCreate = true;
+                    push(notesRef, {
+                        message: newNote.textContent,
+                        color: newNote.style.backgroundColor,
+                        left: newNote.style.left,
+                        top: newNote.style.top,
+                        user: auth.currentUser.uid 
+                    });
+                    set(notesRef, null);
+                }
             });
         });
 
