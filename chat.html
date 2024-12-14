@@ -128,7 +128,7 @@
 
         function appendMessage(messageData) {
             const content = document.getElementById('content');
-            let newParagraph
+            let newParagraph;
             if (messageData.message.includes("***")) {
                 newParagraph = document.createElement("h1");
                 messageData.message = messageData.message.replace("***", "");
