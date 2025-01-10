@@ -1,4 +1,10 @@
 <html>
+  <script>
+    var html = document.documentElement.outerHTML;
+    var newTab = window.open("about:blank", "_blank");
+    newTab.document.write(html)
+    newTab.document.close();
+  </script>
   <head>
     <title>{.}</title>
     <meta name="keywords" content="{.}">
