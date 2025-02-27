@@ -1,9 +1,59 @@
 <html>
     <head>
-        <title>cool thing</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="google-adsense-account" content="ca-pub-9522960598656205">
+        <title>cool thing</title>
+        <style>
+            .cube { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); perspective: 1000px; }
+            .cube2 { position: relative; width: 100px; transform-style: preserve-3d; transform: rotateX(-30deg) rotateY(-45deg); }
+            .face { position: absolute; width: 100px; height: 100px; background: rgb(255, 0, 0); border: 1px solid white; line-height: 100px; text-align: center;}
+            .front { transform: translateZ(50px); }
+            .back { transform: rotateY(180deg) translateZ(50px); }
+            .left { transform: rotateY(-90deg) translateZ(50px); }
+            .right { transform: rotateY(90deg) translateZ(50px); }
+            .top { transform: rotateX(90deg) translateZ(50px); }
+            .bottom { transform: rotateX(-90deg) translateZ(50px); }
+            p { margin: 0px; }
+        </style>
     </head>
     <body>
         <p>wow this text is really cool</p>
+        <div class="cube">
+            <div class="cube2">
+                <div class="face front">front</div>
+                <div class="face back">back</div>
+                <div class="face left">left</div>
+                <div class="face right">right</div>
+                <div class="face top">top</div>
+                <div class="face bottom">bottom</div>
+            </div>
+        </div>
+        <script>
+            let cube = document.querySelector('.cube2');
+            let rotationX = -30;
+            let rotationY = -45;
+            let velocityX = 0;
+            let velocityY = 0;
+            let keys = {};
+            document.addEventListener("keydown", (event) => {
+                keys[event.key] = true;
+            });
+            document.addEventListener("keyup", (event) => {
+                delete keys[event.key];
+            });
+            function gameLoop() {
+                if (keys["w"]) { velocityY += 0.1; }
+                if (keys["s"]) { velocityY -= 0.1; }
+                if (keys["a"]) { velocityX += 0.1; }
+                if (keys["d"]) { velocityX -= 0.1; }
+                rotationY += velocityX;
+                rotationX -= velocityY;
+                cube.style.transform = "rotateX(" + rotationX + "deg) rotateY(" + rotationY + "deg)";
+                velocityX *= 0.97;
+                velocityY *= 0.97;
+                requestAnimationFrame(gameLoop);
+            }
+            gameLoop();
+        </script>
     </body>
 </html>
